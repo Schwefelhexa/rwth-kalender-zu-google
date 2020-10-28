@@ -20,6 +20,16 @@ const Home: React.FC = () => {
     scope,
   });
 
-  return <Link href={auth_url}>Google login</Link>;
+  return (
+    <>
+      <h1 className="text-primary text-6xl font-semibold leading-none">RWTH Kalender zu Google</h1>
+      <Link href={auth_url}>
+        <span className="text-4xl font-semibold leading-none bg-primary text-light px-10 py-6 cursor-pointer">
+          Mit Google anmelden
+        </span>
+      </Link>
+      <div></div>
+    </>
+  );
 };
 export default Home;
