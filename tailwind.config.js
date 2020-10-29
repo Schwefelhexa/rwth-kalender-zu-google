@@ -3,7 +3,7 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: ['src/**.*.tsx', 'src/**.*.ts'],
+  purge: ['src/**/*.tsx', 'src/**/*.ts'],
   theme: {
     extend: {
       fontFamily: {
