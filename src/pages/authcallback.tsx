@@ -5,6 +5,8 @@ import { useUrlFragment } from '../core/hooks/route';
 import UploadCalender from '../components/steps/UploadCalendar';
 import SetColors from '../components/steps/SetColors';
 import StepTracker from '../components/StepTracker';
+import ConfirmAndUpload from '../components/steps/ConfirmAndUpload';
+import { GlobalContextProvider } from '../core/state/global';
 
 interface Step {
   title: string;
@@ -20,8 +22,8 @@ const steps: Step[] = [
     Component: SetColors,
   },
   {
-    title: '',
-    Component: () => null,
+    title: 'Bestätigen',
+    Component: ConfirmAndUpload,
   },
 ];
 
@@ -44,7 +46,7 @@ const Home: React.FC = () => {
   const currentStep = steps[step];
 
   return (
-    <>
+    <GlobalContextProvider token={fragment.access_token}>
       <div className="text-center w-full">
         <h1 className="text-primary text-6xl font-semibold leading-none mb-8">{currentStep.title}</h1>
         <StepTracker value={step} steps={3} />
@@ -53,7 +55,7 @@ const Home: React.FC = () => {
         <currentStep.Component onComplete={() => setStep((step) => step + 1)} />
       </div>
       <div></div>
-    </>
+    </GlobalContextProvider>
   );
 };
 export default Home;

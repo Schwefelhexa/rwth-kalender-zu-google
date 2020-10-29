@@ -12,6 +12,9 @@ const Home: React.FC = () => {
   const scope = [
     'https://www.googleapis.com/auth/calendar.readonly',
     'https://www.googleapis.com/auth/calendar.events',
+    'profile',
+    'openid',
+    'email',
   ].join(' ');
   const auth_url = setQueryParameters('https://accounts.google.com/o/oauth2/v2/auth', {
     client_id,

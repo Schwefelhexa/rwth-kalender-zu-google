@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { getEventColors } from '../../core/data/colors';
+import React, { useState } from 'react';
+import { getEventColors } from '../../core/fetch/colors';
+import { useGoogleToken, useSetEventColors } from '../../core/hooks/global_state';
 import { usePromise } from '../../core/hooks/promise';
+import Color from '../../core/model/Color';
 import { LvType } from '../../core/model/CsvEvent';
+import { Colors } from '../../core/model/GlobalState';
 import ColorSelector from '../ColorSelector';
 
 const SetColors: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  const [colors, done] = usePromise(() =>
-    getEventColors(
-      'ya29.a0AfH6SMDf_9WRSutUGlm3KVjRAMOJRx1pASUVkt2cffdplwEm6NMDCW_jtHrvd2subJfI0QSUolTztXfJsKhJ3tzjzYdkBKhIUP9PtMgKef_BfjOZHa1Gps6eV8o8WqnQhErGyJxeGKUm31C-iT5b1ZY5lfiO8ZADp4o'
-    )
-  );
+  const token = useGoogleToken();
+  const [colors, done] = usePromise(() => {
+    console.log(token);
+    if (token) return getEventColors(token);
+    return null;
+  }, [token]);
 
   const [selectedColors, setSelectedColors] = useState<{ [key in LvType]: string }>({ UE: '1', VO: '1', VU: '1' });
+
+  const setColors = useSetEventColors();
 
   return (
     <div className="w-full flex flex-row">
@@ -50,7 +56,14 @@ const SetColors: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
           className="text-4xl font-semibold leading-none bg-primary text-light px-10 py-6 cursor-pointer"
           type="button"
           value="Weiter"
-          onClick={() => onComplete()}
+          onClick={() => {
+            setColors(
+              (Object.keys(selectedColors) as LvType[])
+                .map((key) => ({ key, value: colors?.find((val) => val.id === selectedColors[key])! }))
+                .reduce<{ [key: string]: Color }>((all, { key, value }) => ({ ...all, [key]: value }), {}) as Colors
+            );
+            onComplete();
+          }}
         />
       </div>
     </div>

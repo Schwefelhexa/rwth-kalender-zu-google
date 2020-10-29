@@ -1,19 +1,24 @@
 import React from 'react';
-import { parseCalendar } from '../../core/parse/csv';
+import { useSetCalendarEvents } from '../../core/hooks/global_state';
+import { parseCalendar } from '../../core/data/csv';
 
-const UploadCalender: React.FC<{ onComplete: () => void }> = ({ onComplete }) => (
-  <input
-    type="file"
-    name="Kalender"
-    className="block mx-auto"
-    onChange={(e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
+const UploadCalender: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
+  const setEvents = useSetCalendarEvents();
 
-      parseCalendar(file)
-        .then(console.table)
-        .then(() => onComplete());
-    }}
-  />
-);
+  return (
+    <input
+      type="file"
+      name="Kalender"
+      className="block mx-auto"
+      onChange={(e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        parseCalendar(file)
+          .then((events) => setEvents(events))
+          .then(() => onComplete());
+      }}
+    />
+  );
+};
 export default UploadCalender;
