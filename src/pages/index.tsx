@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   // Generate link URL
   const client_id = '686614162232-to5sfvc1qeh3l6fj28mmnqkn3kth0q29.apps.googleusercontent.com';
   const redirect_uri = `${
-    process.env.NODE_ENV === 'production' ? 'https://rwth-kalender-zu-google.vercel.app' : 'http://localhost:8080'
+    process.env.NODE_ENV === 'production' ? 'https://rwthkalender.baronalexander.com' : 'http://localhost:8080'
   }/authcallback`;
   const response_type = 'token';
   const scope = [
