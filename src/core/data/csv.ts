@@ -40,5 +40,6 @@ export const parseCalendar = (source: File): Promise<CsvEvent[]> =>
       complete: ({ data }) => {
         resolve(data.map((item) => parseCalendarLine(item as string[])).filter((item) => item !== null) as CsvEvent[]);
       },
+      encoding: 'ISO-8859-1',
     });
   });
