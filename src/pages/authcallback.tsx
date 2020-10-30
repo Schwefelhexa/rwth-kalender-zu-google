@@ -7,6 +7,7 @@ import SetColors from '../components/steps/SetColors';
 import StepTracker from '../components/StepTracker';
 import ConfirmAndUpload from '../components/steps/ConfirmAndUpload';
 import { GlobalContextProvider } from '../core/state/global';
+import { batchDeleteEvents, getAllEvents } from '../core/fetch/events';
 
 interface Step {
   title: string;
@@ -54,7 +55,25 @@ const Home: React.FC = () => {
       <div className="w-full">
         <currentStep.Component onComplete={() => setStep((step) => step + 1)} />
       </div>
-      <div></div>
+      <div>
+        <input
+          className="text-4xl font-semibold leading-none bg-danger text-light px-10 py-6 cursor-pointer"
+          type="button"
+          value="Alle Einträge aus Kalender löschen"
+          onClick={async () => {
+            const all = await getAllEvents(fragment.access_token);
+            const auto_created = all.filter((event) =>
+              event.description.endsWith(
+                'Automatisch erstellt mit <a href="https://rwthkalender.baronalexander.com">RWTH Kalender zu Google</a>'
+              )
+            );
+            await batchDeleteEvents(
+              auto_created.map((event) => event.id!),
+              fragment.access_token
+            );
+          }}
+        />
+      </div>
     </GlobalContextProvider>
   );
 };

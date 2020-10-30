@@ -3,6 +3,8 @@ export interface GoogleApiDateTime {
 }
 
 interface GoogleApiEvent {
+  id?: string;
+
   description: string;
   summary: string;
 
