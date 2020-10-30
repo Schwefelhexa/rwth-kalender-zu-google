@@ -6,7 +6,7 @@ import GoogleApiEvent from '../model/GoogleApiEvent';
 const buildBatchRequestItem = (
   url: string,
   method: 'GET' | 'POST' | 'DELETE',
-  body: string,
+  body: string | null,
   boundary: string
 ) => `--${boundary}
 Content-Type: application/http
