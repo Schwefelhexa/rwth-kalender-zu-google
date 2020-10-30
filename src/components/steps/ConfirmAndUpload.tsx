@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { batchCreateEvents } from '../../core/fetch/events';
 import { getUserInfo } from '../../core/fetch/user';
 import { useCalendarEvents, useEventColors, useGoogleToken } from '../../core/hooks/global_state';
@@ -13,6 +14,8 @@ const ConfirmAndUpload: React.FC = () => {
     if (token) return getUserInfo(token);
     return null;
   }, [token]);
+
+  const router = useRouter();
 
   return (
     <div className="w-full flex flex-row">
@@ -68,7 +71,7 @@ const ConfirmAndUpload: React.FC = () => {
                 color: colors[event.lv_type],
               })),
               token
-            );
+            ).then(() => router.replace('/done'));
           }}
         />
       </div>
