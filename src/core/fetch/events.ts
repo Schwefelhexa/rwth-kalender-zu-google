@@ -14,8 +14,7 @@ Content-Type: application/http
 ${method} ${url}
 ${
   body
-    ? `
-Content-Type: application/json
+    ? `Content-Type: application/json
 Content-Length: ${body.length}
 
 ${body}
