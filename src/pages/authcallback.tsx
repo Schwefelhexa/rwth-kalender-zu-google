@@ -62,10 +62,11 @@ const Home: React.FC = () => {
           value="Alle Einträge aus Kalender löschen"
           onClick={async () => {
             const all = await getAllEvents(fragment.access_token);
-            const auto_created = all.filter((event) =>
-              event.description.endsWith(
-                'Automatisch erstellt mit <a href="https://rwthkalender.baronalexander.com">RWTH Kalender zu Google</a>'
-              )
+            const auto_created = all.filter(
+              (event) =>
+                event.description?.endsWith(
+                  'Automatisch erstellt mit <a href="https://rwthkalender.baronalexander.com">RWTH Kalender zu Google</a>'
+                ) ?? false
             );
             await batchDeleteEvents(
               auto_created.map((event) => event.id!),

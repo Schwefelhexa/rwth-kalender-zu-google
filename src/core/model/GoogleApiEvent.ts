@@ -5,7 +5,7 @@ export interface GoogleApiDateTime {
 interface GoogleApiEvent {
   id?: string;
 
-  description: string;
+  description?: string;
   summary: string;
 
   start: GoogleApiDateTime;
