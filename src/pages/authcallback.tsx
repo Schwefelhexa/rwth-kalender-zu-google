@@ -8,6 +8,7 @@ import StepTracker from '../components/StepTracker';
 import ConfirmAndUpload from '../components/steps/ConfirmAndUpload';
 import { GlobalContextProvider } from '../core/state/global';
 import { batchDeleteEvents, getAllEvents } from '../core/fetch/events';
+import Button from '../components/Button';
 
 interface Step {
   title: string;
@@ -56,10 +57,8 @@ const Home: React.FC = () => {
         <currentStep.Component onComplete={() => setStep((step) => step + 1)} />
       </div>
       <div>
-        <input
-          className="text-4xl font-semibold leading-none bg-danger text-light px-10 py-6 cursor-pointer"
-          type="button"
-          value="Alle Einträge aus Kalender löschen"
+        <Button
+          danger
           onClick={async () => {
             const all = await getAllEvents(fragment.access_token);
             const auto_created = all.filter(
@@ -73,7 +72,9 @@ const Home: React.FC = () => {
               fragment.access_token
             );
           }}
-        />
+        >
+          Alle Einträge aus Kalender löschen
+        </Button>
       </div>
     </GlobalContextProvider>
   );

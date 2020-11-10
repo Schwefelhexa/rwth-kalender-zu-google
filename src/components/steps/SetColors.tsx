@@ -5,6 +5,7 @@ import { usePromise } from '../../core/hooks/promise';
 import Color from '../../core/model/Color';
 import { LvType } from '../../core/model/CsvEvent';
 import { Colors } from '../../core/model/GlobalState';
+import Button from '../Button';
 import ColorSelector from '../ColorSelector';
 
 const SetColors: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
@@ -52,10 +53,7 @@ const SetColors: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
         )}
       </div>
       <div className="flex-grow flex justify-end items-center">
-        <input
-          className="text-4xl font-semibold leading-none bg-primary text-light px-10 py-6 cursor-pointer"
-          type="button"
-          value="Weiter"
+        <Button
           onClick={() => {
             setColors(
               (Object.keys(selectedColors) as LvType[])
@@ -64,7 +62,9 @@ const SetColors: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
             );
             onComplete();
           }}
-        />
+        >
+          Weiter
+        </Button>
       </div>
     </div>
   );

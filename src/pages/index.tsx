@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { setQueryParameters } from '../core/util/route';
+import { LinkButton } from '../components/Button';
 
 const Home: React.FC = () => {
   // Generate link URL
@@ -26,11 +27,7 @@ const Home: React.FC = () => {
   return (
     <>
       <h1 className="text-primary text-6xl font-semibold leading-none">RWTH Kalender zu Google</h1>
-      <Link href={auth_url}>
-        <span className="text-4xl font-semibold leading-none bg-primary text-light px-10 py-6 cursor-pointer">
-          Mit Google anmelden
-        </span>
-      </Link>
+      <LinkButton href={auth_url}>Mit Google anmelden</LinkButton>
       <div></div>
     </>
   );

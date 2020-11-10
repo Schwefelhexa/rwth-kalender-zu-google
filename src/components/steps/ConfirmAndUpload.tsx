@@ -4,6 +4,7 @@ import { batchCreateEvents } from '../../core/fetch/events';
 import { getUserInfo } from '../../core/fetch/user';
 import { useCalendarEvents, useEventColors, useGoogleToken } from '../../core/hooks/global_state';
 import { usePromise } from '../../core/hooks/promise';
+import Button from '../Button';
 
 const ConfirmAndUpload: React.FC = () => {
   const token = useGoogleToken()!;
@@ -60,20 +61,20 @@ const ConfirmAndUpload: React.FC = () => {
         </div>
       </div>
       <div className="flex-grow flex justify-end items-center">
-        <input
-          className="text-4xl font-semibold leading-none bg-primary text-light px-10 py-6 cursor-pointer"
-          type="button"
-          value="Hochladen!"
-          onClick={() => {
-            batchCreateEvents(
+        <Button
+          onClick={async () => {
+            await batchCreateEvents(
               events.map((event) => ({
                 event,
                 color: colors[event.lv_type],
               })),
               token
-            ).then(() => router.replace('/done'));
+            );
+            router.replace('/done');
           }}
-        />
+        >
+          Hochladen!
+        </Button>
       </div>
     </div>
   );
